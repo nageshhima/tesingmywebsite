@@ -21,13 +21,44 @@
         h1 {
             font-size: 3em;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div>
+    <div id="content" class="hidden">
         <h1>Page Under Construction</h1>
         <p>We're working hard to get this page up and running. Please check back later!</p>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyntPc0B8vVVASE"></div>
     </div>
+
+    <form id="captchaForm" onsubmit="return validateCaptcha(event)">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyntPc0B8vVVASE"></div>
+        <button type="submit">Verify</button>
+    </form>
+
+    <script>
+        async function validateCaptcha(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const token = document.querySelector('.cf-turnstile').getAttribute('data-token');
+
+            // Check if token is valid (You need to verify this on your server)
+            const response = await fetch('/verify-captcha', { // Your backend endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token }),
+            });
+
+            if (response.ok) {
+                document.getElementById('content').classList.remove('hidden');
+                document.getElementById('captchaForm').classList.add('hidden');
+            } else {
+                alert('Captcha verification failed. Please try again.');
+            }
+        }
+    </script>
 </body>
 </html>
