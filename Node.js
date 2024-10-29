@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const SECRET_KEY = 'YOUR_SECRET_KEY'; // Replace with your actual secret key
+const SECRET_KEY = '0x4AAAAAAAyntAO9YdAsaNJ1-NQ3XtsSfJU'; // Replace with your actual secret key
 
 app.post('/verify-captcha', async (req, res) => {
     const { token } = req.body;
