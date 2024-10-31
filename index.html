@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Under Construction</title>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         body {
             display: flex;
@@ -32,32 +31,11 @@
         <p>We're working hard to get this page up and running. Please check back later!</p>
     </div>
 
-    <form id="captchaForm" onsubmit="return validateCaptcha(event)">
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAyntPc0B8vVVASE"></div>
-        <button type="submit">Verify</button>
-    </form>
+    <button onclick="showContent()">Verify</button>
 
     <script>
-        async function validateCaptcha(event) {
-            event.preventDefault(); // Prevent form submission
-
-            const token = document.querySelector('.cf-turnstile').getAttribute('data-token');
-
-            // Check if token is valid (You need to verify this on your server)
-            const response = await fetch('/verify-captcha', { // Your backend endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token }),
-            });
-
-            if (response.ok) {
-                document.getElementById('content').classList.remove('hidden');
-                document.getElementById('captchaForm').classList.add('hidden');
-            } else {
-                alert('Captcha verification failed. Please try again.');
-            }
+        function showContent() {
+            document.getElementById('content').classList.remove('hidden');
         }
     </script>
 </body>
